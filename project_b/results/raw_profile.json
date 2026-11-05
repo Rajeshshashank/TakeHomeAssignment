@@ -1,0 +1,89 @@
+{
+ "n_rows": 144000,
+ "findings": {
+  "renamed_or_dropped_column": {
+   "count": 0,
+   "pct": 0.0,
+   "example": "missing=[] unexpected=[]",
+   "note": "columns in the extract that do not match the documented schema"
+  },
+  "column_type_change": {
+   "count": 141827,
+   "pct": 98.491,
+   "example": "latitude is a string, e.g. '40.72762987830367'",
+   "note": "latitude/longitude are JSON strings, not numbers"
+  },
+  "date_format_switch": {
+   "count": 0,
+   "pct": 0.0,
+   "example": "created_date='2023-01-01T00:00:00.000'",
+   "note": "all rows share one ISO format in this extract; a mid-batch switch is what the injector models"
+  },
+  "latlon_swapped": {
+   "count": 0,
+   "pct": 0.0,
+   "example": "no out-of-envelope coordinates",
+   "note": "no swapped pairs in this extract"
+  },
+  "missing_coordinates": {
+   "count": 2173,
+   "pct": 1.509,
+   "example": "2173 rows have no latitude/longitude",
+   "note": "a separate, larger problem than a swap"
+  },
+  "exact_duplicates": {
+   "count": 831,
+   "pct": 0.577,
+   "example": "no two rows identical on every field",
+   "note": "unique_key is unique; content duplicates do exist but are near-, not exact"
+  },
+  "near_duplicates": {
+   "count": 4301,
+   "pct": 2.987,
+   "example": "e.g. 32460 shares type/address/timestamp with another row",
+   "note": "same complaint, same address, same timestamp, different unique_key"
+  },
+  "null_spike": {
+   "count": 16352,
+   "pct": 11.356,
+   "example": "location_type is absent on 16352 rows",
+   "note": "nulls are diffuse here, not concentrated in one agency's feed; Socrata omits the key entirely"
+  },
+  "closed_before_created": {
+   "count": 188,
+   "pct": 0.131,
+   "example": "created=2023-02-01T08:05:00.000 closed=2023-01-31T08:04:00.000",
+   "note": "negative resolution time"
+  },
+  "zip_borough_mismatch": {
+   "count": 49,
+   "pct": 0.034,
+   "example": "ZIP 10463 in MANHATTAN",
+   "note": "ZIP prefix contradicts the stated borough"
+  },
+  "complaint_descriptor_mismatch": {
+   "count": 0,
+   "pct": 0.0,
+   "example": "",
+   "note": "descriptor drawn from a different complaint family"
+  },
+  "resolution_status_contradiction": {
+   "count": 7800,
+   "pct": 5.417,
+   "example": "The complaint you filed is a duplicate of a condition already reported by another tenant for a building-wide c",
+   "note": "status and resolution text disagree"
+  },
+  "pii_in_text": {
+   "count": 211,
+   "pct": 0.147,
+   "example": "The NYC Health Department has responded to your service request. For inspection results, please call (212) 676-1600 or e",
+   "note": "9 agency numbers allow-listed by frequency"
+  },
+  "missing_status": {
+   "count": 50,
+   "pct": 0.035,
+   "example": "status Unspecified or absent",
+   "note": "an unrecognised status value is itself a schema problem"
+  }
+ }
+}

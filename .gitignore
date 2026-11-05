@@ -1,0 +1,8 @@
+# The 108 MB plain extract is regenerated from the shipped .gz (or fetched).
+# Only the compressed copy is committed.
+project_b/data/*.jsonl
+
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/

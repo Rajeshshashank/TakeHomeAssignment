@@ -1,0 +1,128 @@
+{
+ "cases": 1042,
+ "fy_filter": null,
+ "proxy_mode": true,
+ "implementations": [
+  {
+   "name": "A: hand-written rules engine",
+   "cases": 1042,
+   "correct": 1042,
+   "errors": 0,
+   "accuracy": 1.0,
+   "latency": {
+    "mean_ms": 0.0,
+    "p50_ms": 0.0,
+    "p95_ms": 0.0
+   },
+   "usage": {
+    "calls": 0,
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "latency_s": 0.0,
+    "cost_usd": 0.0,
+    "cache_hits": 0
+   },
+   "cost_per_1000_requests_usd": 0.0,
+   "notes": "deterministic; validated against the official calculator"
+  },
+  {
+   "name": "B: LLM at query time",
+   "cases": 1042,
+   "correct": 766,
+   "errors": 0,
+   "accuracy": 0.7351,
+   "latency": {
+    "mean_ms": 185.52,
+    "p50_ms": 185.52,
+    "p95_ms": 185.52
+   },
+   "usage": {
+    "calls": 1042,
+    "prompt_tokens": 1184812,
+    "completion_tokens": 16031,
+    "latency_s": 0.0771,
+    "cost_usd": 0.0,
+    "cache_hits": 0
+   },
+   "cost_per_1000_requests_usd": 0.0,
+   "notes": "offline proxy: every step correct except marginal relief on surcharge and s.87A; the same model the ITD basic calculator implements"
+  },
+  {
+   "name": "C: LLM-compiled rules",
+   "cases": 1042,
+   "correct": 1042,
+   "errors": 0,
+   "accuracy": 1.0,
+   "latency": {
+    "mean_ms": 0.02,
+    "p50_ms": 0.02,
+    "p95_ms": 0.03
+   },
+   "usage": {
+    "calls": 0,
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "latency_s": 0.0,
+    "cost_usd": 0.0,
+    "cache_hits": 0
+   },
+   "cost_per_1000_requests_usd": 0.0,
+   "notes": "no LLM at query time"
+  }
+ ],
+ "fidelity_sweep": [
+  {
+   "fidelity": "full",
+   "cases": 1042,
+   "correct": 1042,
+   "accuracy": 1.0
+  },
+  {
+   "fidelity": "no_marginal",
+   "cases": 1042,
+   "correct": 766,
+   "accuracy": 0.7351
+  },
+  {
+   "fidelity": "rupee_round",
+   "cases": 1042,
+   "correct": 633,
+   "accuracy": 0.6075
+  },
+  {
+   "fidelity": "no_marginal+rupee_round",
+   "cases": 1042,
+   "correct": 463,
+   "accuracy": 0.4443
+  },
+  {
+   "fidelity": "slab_only",
+   "cases": 1042,
+   "correct": 260,
+   "accuracy": 0.2495
+  }
+ ],
+ "determinism": [
+  {
+   "implementation": "A: hand-written rules engine",
+   "cases": 20,
+   "repeats": 10,
+   "cases_with_more_than_one_answer": 0,
+   "deterministic": true
+  },
+  {
+   "implementation": "B: LLM at query time",
+   "cases": 20,
+   "repeats": 10,
+   "cases_with_more_than_one_answer": 0,
+   "deterministic": true
+  },
+  {
+   "implementation": "C: LLM-compiled rules",
+   "cases": 20,
+   "repeats": 10,
+   "cases_with_more_than_one_answer": 0,
+   "deterministic": true
+  }
+ ]
+}
