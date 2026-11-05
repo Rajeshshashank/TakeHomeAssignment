@@ -15,7 +15,7 @@ test, not by reading the output.
 
 ## Where the AI was wrong, and how it was caught
 
-### 1. The compiled FY 2025-26 rules were silently wrong in two ways
+### 1. The compiled FY 2025-26 rules were silently wrong
 
 This is the central example, and it is deliberately preserved in the repo as
 `project_a/compiled/compiled_fy2025_26_firstpass.py`.
@@ -23,27 +23,23 @@ This is the central example, and it is deliberately preserved in the repo as
 The compile prompt was given the FY 2025-26 rule text and asked for one
 self-contained Python module. The model returned clean, plausible code that
 updated the new-regime slabs and the s.87A rebate threshold. It ran without
-error. It was wrong:
-
-1. it left the new-regime standard deduction at **75,000** instead of
-   **1,00,000**, and
-2. it did not implement the s.87A new-regime **marginal-relief proviso**, so a
-   taxpayer 10 rupees over 12,00,000 was charged the full slab tax (66,300)
-   instead of about 10 rupees.
+error. It was wrong: it did not implement the s.87A new-regime **marginal-relief
+proviso**, so a taxpayer 10 rupees over 12,00,000 was charged the full slab tax
+(62,400) instead of about 10 rupees.
 
 Nothing about the output signalled a problem. **How it was caught:** the
 1042-answer corpus was written *before* the compilation (Task 1 is "test suite
-first"), so running the unreviewed module against it showed **324 of 1042
-answers (31.1%) wrong with zero exceptions** — the definition of a silent
-failure. `project_a/tests/test_task5.py` now pins both defects, so the same
-mistake cannot return unnoticed.
+first"), so running the unreviewed module against it showed the wrong answers
+with zero exceptions — the definition of a silent failure.
+`project_a/tests/test_task5.py` now pins the defect, so the same mistake cannot
+return unnoticed.
 
 The lesson is not "the model is bad"; it is that a fluent, error-free artifact
 is not evidence of correctness, and the only thing that turned this into a
 30-second fix instead of a shipped bug was having the oracle and the corpus
 already in place.
 
-### 3. The cost model understated the LLM bill by ~20x
+### 2. The cost model understated the LLM bill by ~20x
 
 The first version of `cost_per_million_rows` in
 `project_b/detectors/llm_review.py` was passed *per-row* token averages and then
@@ -76,7 +72,7 @@ brief warns about: an LLM-produced number that is self-consistent, plausible and
 wrong, caught only by checking it against first principles rather than against
 another model output.
 
-### 4. The data profiler's null analysis crashed on an empty counter
+### 3. The data profiler's null analysis crashed on an empty counter
 
 The first version of `scripts/profile_raw.py` computed `null_counts` and then
 took `null_counts.most_common(1)[0]`. On a column set where the counter came
@@ -84,7 +80,7 @@ back empty it raised `IndexError`. That is a hard failure — it stopped the run
 — so it was cheap to find and is now guarded. Recorded here because it is the
 *opposite* failure mode to example 1: loud, and therefore easy.
 
-### 3. The first contradiction detector was too broad
+### 4. The first contradiction detector was too broad
 
 The first cut of "resolution text contradicts status" used a negative-word
 regex, which fired on **7,800 rows (5.42%)** — including legitimate closures
@@ -102,8 +98,9 @@ false-alarm rate, and the way to earn that is to look at what actually fired.
 
 * Every statutory number in `taxspec/*.yaml` against the Finance Act text, and
   the 30 official-calculator rows in
-  `project_a/tests/cases/official_calculator_checks.json` — including the one
-  row that diverges (top 37% surcharge band) to confirm it is the portal's
+  `project_a/tests/cases/official_calculator_checks.json` — including the 8 rows
+  that diverge from the statute (the s.87A new-regime edge and the three
+  surcharge thresholds, plus rupee flooring) to confirm each is the portal's
   documented "basic calculator" limitation and not our bug.
 * The 12 injected problem types against the injector's labels, via
   `project_b/tests/test_detectors.py::test_injector_labels_exactly_what_it_corrupts`.

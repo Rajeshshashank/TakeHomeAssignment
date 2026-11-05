@@ -122,15 +122,21 @@ def compute_oracle(profile: dict[str, Any], fy: str = "2024-25") -> dict[str, fl
         tax = _tax(ti, bands)
         sur, _relief = _marginal_sur(ti, tax, bands, regime)
 
-        # s.87A rebate
+        # s.87A rebate. Marginal relief is a *new-regime* proviso only: the old
+        # regime is a plain cliff, so an income one rupee over 5,00,000 loses the
+        # whole rebate.
         if regime == "old":
             thr, cap = 500000.0, 12500.0
+            mr = False
         else:
             thr, cap = 700000.0, 25000.0
+            mr = True
         if ti <= thr:
             reb = min(tax + sur, cap)
-        else:
+        elif mr:
             reb = max(0.0, (tax + sur) - (ti - thr))
+        else:
+            reb = 0.0
         cess = (tax + sur - reb) * 0.04
         out[regime] = _r10(max(0.0, tax + sur - reb + cess))
     return out

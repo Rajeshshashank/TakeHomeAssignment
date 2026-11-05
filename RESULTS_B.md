@@ -172,7 +172,7 @@ layer into a large bill.
 
 | Problem | Detection | $/million rows | LLM calls/row | ms / 1k rows |
 |---|---:|---:|---:|---:|
-| all 12 problem types | 100% (99% for descriptor mismatch) | ≤ 1.76 | ≤ 0.0050 | ≤ 0.2 |
+| all 12 problem types | 100% (99% for descriptor mismatch) | ≤ 1.76 | ≤ 0.0050 | ≤ 170 |
 
 The hybrid catches every problem the best single family catches, at a blended
 cost of **at most $1.76 per million rows** (median $0.94) — because 11 of 12

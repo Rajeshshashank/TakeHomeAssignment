@@ -32,12 +32,22 @@ the engine hard-codes none of them.
   every surcharge boundary, and the rebate edges — with a ±10-rupee probe on
   each side of every edge.
 * **30 cases checked against the Income Tax Department's official calculator**
-  (`official_calculator_checks.json`). All 30 agree. 22/30 are statutory-exact
-  and 29/30 match the portal's *basic* model; the one gap is the top 37%
-  surcharge band, where the portal's basic calculator applies the surcharge
-  without the statutory marginal relief. The portal's own page warns that its
-  basic calculator omits marginal relief, so the divergence is expected and
-  documented rather than hidden.
+  (`official_calculator_checks.json`). All 30 reproduce the portal exactly.
+  Because the portal's *basic* calculator is not the statute — it floors to the
+  rupee, omits the s.87A marginal-relief proviso, and applies surcharge marginal
+  relief only at the first threshold — the comparison is run as an *equality*
+  test against a faithful model of that calculator, not a permissive "matches
+  either model" test. 22/30 are also statutory-exact and 30/30 are
+  basic-model-exact; the 8 statutory divergences are exactly the portal's
+  documented limits: rupee flooring at 5,00,010 / 7,00,010 / 8,00,010 / 24,00,010,
+  the s.87A new-regime edge at 12,00,010, and the surcharge thresholds at
+  1 crore / 2 crore / 5 crore. Every row is classified so a divergence away from
+  a marginal-relief boundary would fail the build.
+* **The old regime's s.87A rebate is a cliff, not a slope.** A total income of
+  5,00,010 forfeits the whole 12,500 and pays full slab tax; only the new regime
+  has a marginal-relief proviso. The engine, the oracle, the compiled modules
+  and the LLM proxy all encode this, and
+  `test_old_regime_87a_is_a_cliff_not_marginal_relief` pins it.
 * **58 plain-language descriptions** (≥ 50 required) across 13 styles:
   formal English, terse, Hinglish, monthly figures, unit abbreviations
   ("1.5L", "18,00,000"), number words, senior citizens, metro/non-metro, and
@@ -58,11 +68,11 @@ prices (USD per 1M tokens: in 0.10, out 0.40).
 | Implementation | Kind | Accuracy | Mean latency | p95 | Tokens/req | $/1,000 req | Deterministic | Every rupee cited? |
 |---|---|---:|---:|---:|---:|---:|---|---|
 | A: hand-written rules | rule | **100.0%** (1042/1042) | 0.0 ms | 0.0 ms | 0 | **$0.0000** | yes | yes |
-| B: LLM at query time | LLM | 73.5% (766/1042) | 185.5 ms | 185.5 ms | 1152 | **$0.1199** | proxy yes; not guaranteed live | no |
+| B: LLM at query time | LLM | 74.9% (780/1042) | 185.5 ms | 185.5 ms | 1163 | **$0.1209** | proxy yes; not guaranteed live | no |
 | C: LLM-compiled rules | hybrid | **100.0%** (1042/1042) | 0.02 ms | 0.03 ms | 0 | **$0.0000** | yes | yes |
 
 Read this table as: A and C are tied on every axis that matters, and C got
-there with an LLM in the build loop; B is 26 points less accurate, ~9000×
+there with an LLM in the build loop; B is 25 points less accurate, ~9000×
 slower and the only row that costs money per request.
 
 **Fidelity sweep — which single omission costs most.** Implementation B's
@@ -72,10 +82,10 @@ plausible model error injected at a time:
 | Model fidelity | Correct | Accuracy |
 |---|---:|---:|
 | full | 1042/1042 | 100.0% |
-| forgets marginal relief on surcharge + s.87A | 766/1042 | 73.5% |
-| rounds to the rupee instead of to ten | 633/1042 | 60.8% |
-| both of the above | 463/1042 | 44.4% |
-| slabs only, no deductions/surcharge/rebate | 260/1042 | 24.9% |
+| forgets marginal relief on surcharge + s.87A | 780/1042 | 74.9% |
+| rounds to the rupee instead of to ten | 636/1042 | 61.0% |
+| both of the above | 471/1042 | 45.2% |
+| slabs only, no deductions/surcharge/rebate | 257/1042 | 24.7% |
 
 This is the evidence for the hybrid design: the model gets the *shape* of the
 computation right and the *rounding and relief provisos* wrong. Those are
@@ -96,34 +106,34 @@ which is disqualifying for a tax product regardless of accuracy.
 
 ## 4. Task 5 — the law changes (Finance Act 2025)
 
-`project_a/spec_diff.py` diffs the two specs; it finds **7 substantive deltas**
+`project_a/spec_diff.py` diffs the two specs; it finds **3 substantive deltas**
 (the rest are citation strings and labels):
 
 | Field | FY 2024-25 | FY 2025-26 |
 |---|---|---|
 | `slabs.new.brackets` | 3L/7L/10L/12L/15L, 30% above 15L | 4L/8L/12L/16L/20L/24L, 30% above 24L |
-| `standard_deduction.new` | 75,000 | **1,00,000** |
 | `rebate_87a.new.threshold_total_income` | 7,00,000 | **12,00,000** |
 | `rebate_87a.new.max_rebate` | 25,000 | **60,000** |
 
+The new-regime standard deduction is **not** a delta: the Finance Act 2025 left
+it at 75,000, which is why the salaried zero-tax ceiling is 12,75,000
+(12,00,000 rebate threshold + 75,000).
+
 | Implementation | Change made | Time | What broke | Silent failures |
 |---|---|---|---|---|
-| A (rules) | edited 7 fields in `fy2025_26.yaml` | ~15 min, **0 lines of Python** | nothing | none — all 1042 answers re-verified |
-| C (compiled) | re-ran the compile prompt, reviewed the diff, committed the module | ~40 min (mostly review) | the **first LLM pass was wrong in two ways** | **yes — 324/1042 (31.1%) wrong answers, no exception** |
+| A (rules) | edited 3 fields in `fy2025_26.yaml` | ~15 min, **0 lines of Python** | nothing | none — all 1042 answers re-verified |
+| C (compiled) | re-ran the compile prompt, reviewed the diff, committed the module | ~40 min (mostly review) | the **first LLM pass was wrong** | **yes — 10/1042 wrong answers, no exception** |
 | B (LLM) | updated the rule text in the prompt | ~10 min | nothing in code | yes by construction — no test can pin a per-request model |
 
 The first compiled pass (`compiled_fy2025_26_firstpass.py`, kept as a fixture)
 is the honest answer to "which failures were silent". It updated the slabs and
-the rebate threshold and looked right, but:
+the rebate threshold and looked right, but it did not implement the s.87A
+new-regime marginal-relief proviso, so a taxpayer 10 rupees over 12,00,000 was
+charged the full slab tax (62,400) instead of about 10 rupees.
 
-1. left the new-regime standard deduction at 75,000 instead of 1,00,000, and
-2. did not implement the s.87A new-regime marginal-relief proviso, so a
-   taxpayer 10 rupees over 12,00,000 was charged the full slab tax (66,300)
-   instead of about 10 rupees.
-
-Neither raised. Both returned a plausible rupee number. `test_task5.py` pins
-both defects, and the corpus is what caught them: **324 of 1042 regime-answers
-(31.1%) were silently wrong** before review.
+It never raised. It returned a plausible rupee number. `test_task5.py` pins the
+defect, and the corpus is what caught it: **10 of 1042 regime-answers
+(1.0%) were silently wrong** before review.
 
 ## 5. Task 6 — final design (what I would ship to 100,000 users)
 
@@ -143,7 +153,7 @@ Every box is a **rule** except the compiler, which is **hybrid** and runs
 offline.
 
 * **Tax computation — rule.** It is the only component where a wrong rupee is a
-  legal problem. A is 100% accurate, 0 ms, $0/1k and deterministic; B is 73.5%
+  legal problem. A is 100% accurate, 0 ms, $0/1k and deterministic; B is 74.9%
   and $0.12/1k. There is no accuracy argument for the model here, and a tax
   product cannot ship non-deterministic arithmetic.
 * **Plain-language parsing — rule, with an LLM fallback that must ask, not
@@ -158,9 +168,9 @@ offline.
   trace.
 * **The next Budget — hybrid, offline.** The LLM compiles the new Act into a
   spec diff, a human reviews it against the statute, and the frozen module runs.
-  That is C, and it is what absorbed FY 2025-26: 7 YAML fields for A, one
+  That is C, and it is what absorbed FY 2025-26: 3 YAML fields for A, one
   reviewed compilation for C, and — crucially — a test corpus that turned a
-  silent 31% error into a red test.
+  silent 1% error into a red test.
 
 **Keeping it correct through the next Budget.** Three layers: (1) the corpus
 regenerates from the oracle and must stay green; (2) `spec_diff.py` produces a

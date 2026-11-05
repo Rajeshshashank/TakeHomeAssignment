@@ -101,13 +101,15 @@ def compute(profile, fy="2024-25"):
         tax = _slab(ti, bands)
         sur = _surcharge(ti, tax, bands, regime)
         if regime == "old":
-            thr, cap = 500000.0, 12500.0
+            thr, cap, mr = 500000.0, 12500.0, False
         else:
-            thr, cap = 700000.0, 25000.0
+            thr, cap, mr = 700000.0, 25000.0, True
         if ti <= thr:
             reb = min(tax + sur, cap)
-        else:
+        elif mr:
             reb = max(0.0, (tax + sur) - (ti - thr))
+        else:
+            reb = 0.0
         cess = (tax + sur - reb) * 0.04
         out[regime] = _r10(max(0.0, tax + sur - reb + cess))
     return out

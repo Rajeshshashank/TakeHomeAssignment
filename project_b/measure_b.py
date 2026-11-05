@@ -156,7 +156,7 @@ def measure(proxy: bool = True, rate: float = INJECT_RATE) -> dict[str, Any]:
         hybrid_rows.append({
             "problem": problem,
             "detection_rate": round(detection, 4),
-            "ms_per_1000_rows": round(elapsed / max(1, n_rows) * 1000, 2),
+            "ms_per_1000_rows": round(elapsed / max(1, n_rows) * 1000 * 1000, 2),
             "llm_calls_per_row": round(llm_calls / max(1, n_rows), 4),
             "cost_per_million_rows_usd": round(cost, 4),
         })

@@ -40,8 +40,9 @@ Requirements:
   rent_paid, is_metro, age, professional_tax, sec_80c, sec_80ccd_1b, sec_80d_self,
   sec_80d_parents, parents_are_senior, home_loan_interest, house_is_self_occupied.
 - apply: standard deduction, HRA exemption (old), ss.80C/80CCD(1B)/80D (old),
-  s.24(b) (old), slabs, surcharge with marginal relief, s.87A rebate with marginal
-  relief, 4% cess; round total income and tax to the nearest ten rupees.
+  s.24(b) (old), slabs, surcharge with marginal relief, the s.87A rebate with the
+  marginal-relief proviso *only* where `rebate_87a.<regime>.marginal_relief` is
+  true, 4% cess; round total income and tax to the nearest ten rupees.
 - no imports beyond the standard library; no external data files.
 Output only the code.
 """

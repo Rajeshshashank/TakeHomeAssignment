@@ -12,7 +12,7 @@
    "detection_rate": 1.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 33.607,
+   "ms_per_1000_rows": 34.51,
    "explains_itself": true,
    "n_truth_rows": 0
   },
@@ -22,7 +22,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 21.732,
+   "ms_per_1000_rows": 19.574,
    "explains_itself": true,
    "n_truth_rows": 0
   },
@@ -32,7 +32,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 16.7567,
-   "ms_per_1000_rows": 53.312,
+   "ms_per_1000_rows": 52.538,
    "explains_itself": true,
    "n_truth_rows": 0
   },
@@ -42,7 +42,7 @@
    "detection_rate": 1.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 33.894,
+   "ms_per_1000_rows": 33.526,
    "explains_itself": true,
    "n_truth_rows": 0
   },
@@ -52,7 +52,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 18.832,
+   "ms_per_1000_rows": 18.971,
    "explains_itself": true,
    "n_truth_rows": 0
   },
@@ -62,7 +62,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 16.7567,
-   "ms_per_1000_rows": 54.053,
+   "ms_per_1000_rows": 54.032,
    "explains_itself": true,
    "n_truth_rows": 0
   },
@@ -72,7 +72,7 @@
    "detection_rate": 1.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 35.054,
+   "ms_per_1000_rows": 34.985,
    "explains_itself": true,
    "n_truth_rows": 0
   },
@@ -82,7 +82,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 27.07,
+   "ms_per_1000_rows": 29.187,
    "explains_itself": true,
    "n_truth_rows": 0
   },
@@ -92,7 +92,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 16.7567,
-   "ms_per_1000_rows": 54.112,
+   "ms_per_1000_rows": 54.244,
    "explains_itself": true,
    "n_truth_rows": 0
   },
@@ -102,7 +102,7 @@
    "detection_rate": 1.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 34.643,
+   "ms_per_1000_rows": 34.232,
    "explains_itself": true,
    "n_truth_rows": 525
   },
@@ -112,7 +112,7 @@
    "detection_rate": 1.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 19.989,
+   "ms_per_1000_rows": 19.81,
    "explains_itself": true,
    "n_truth_rows": 525
   },
@@ -122,7 +122,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 16.7567,
-   "ms_per_1000_rows": 53.384,
+   "ms_per_1000_rows": 55.211,
    "explains_itself": false,
    "n_truth_rows": 525
   },
@@ -132,7 +132,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 34.176,
+   "ms_per_1000_rows": 35.014,
    "explains_itself": false,
    "n_truth_rows": 100
   },
@@ -142,7 +142,7 @@
    "detection_rate": 1.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 18.837,
+   "ms_per_1000_rows": 19.767,
    "explains_itself": true,
    "n_truth_rows": 100
   },
@@ -152,7 +152,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 16.7567,
-   "ms_per_1000_rows": 53.779,
+   "ms_per_1000_rows": 54.543,
    "explains_itself": false,
    "n_truth_rows": 100
   },
@@ -162,7 +162,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 33.951,
+   "ms_per_1000_rows": 33.349,
    "explains_itself": false,
    "n_truth_rows": 100
   },
@@ -172,7 +172,7 @@
    "detection_rate": 1.0,
    "false_alarm_rate": 0.00583,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 19.632,
+   "ms_per_1000_rows": 19.862,
    "explains_itself": true,
    "n_truth_rows": 100
   },
@@ -182,7 +182,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 16.7567,
-   "ms_per_1000_rows": 53.753,
+   "ms_per_1000_rows": 56.37,
    "explains_itself": false,
    "n_truth_rows": 100
   },
@@ -192,7 +192,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 34.61,
+   "ms_per_1000_rows": 34.705,
    "explains_itself": false,
    "n_truth_rows": 1769
   },
@@ -202,7 +202,7 @@
    "detection_rate": 1.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 129.99,
+   "ms_per_1000_rows": 129.484,
    "explains_itself": true,
    "n_truth_rows": 1769
   },
@@ -212,7 +212,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 16.6567,
-   "ms_per_1000_rows": 52.568,
+   "ms_per_1000_rows": 53.234,
    "explains_itself": false,
    "n_truth_rows": 1769
   },
@@ -222,7 +222,7 @@
    "detection_rate": 1.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 35.919,
+   "ms_per_1000_rows": 34.811,
    "explains_itself": true,
    "n_truth_rows": 553
   },
@@ -232,7 +232,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 19.749,
+   "ms_per_1000_rows": 19.04,
    "explains_itself": false,
    "n_truth_rows": 553
   },
@@ -242,7 +242,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 16.7567,
-   "ms_per_1000_rows": 55.047,
+   "ms_per_1000_rows": 52.88,
    "explains_itself": false,
    "n_truth_rows": 553
   },
@@ -252,7 +252,7 @@
    "detection_rate": 1.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 34.371,
+   "ms_per_1000_rows": 34.496,
    "explains_itself": true,
    "n_truth_rows": 535
   },
@@ -262,7 +262,7 @@
    "detection_rate": 1.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 19.746,
+   "ms_per_1000_rows": 19.004,
    "explains_itself": true,
    "n_truth_rows": 535
   },
@@ -272,7 +272,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 16.7567,
-   "ms_per_1000_rows": 56.843,
+   "ms_per_1000_rows": 55.024,
    "explains_itself": false,
    "n_truth_rows": 535
   },
@@ -282,7 +282,7 @@
    "detection_rate": 0.6492,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 34.115,
+   "ms_per_1000_rows": 35.297,
    "explains_itself": true,
    "n_truth_rows": 516
   },
@@ -292,7 +292,7 @@
    "detection_rate": 0.9922,
    "false_alarm_rate": 0.00075,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 18.683,
+   "ms_per_1000_rows": 20.729,
    "explains_itself": true,
    "n_truth_rows": 516
   },
@@ -302,7 +302,7 @@
    "detection_rate": 0.6492,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 16.7567,
-   "ms_per_1000_rows": 55.113,
+   "ms_per_1000_rows": 54.051,
    "explains_itself": true,
    "n_truth_rows": 516
   },
@@ -312,7 +312,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 33.817,
+   "ms_per_1000_rows": 32.908,
    "explains_itself": false,
    "n_truth_rows": 535
   },
@@ -322,7 +322,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 17.828,
+   "ms_per_1000_rows": 19.315,
    "explains_itself": false,
    "n_truth_rows": 535
   },
@@ -332,7 +332,7 @@
    "detection_rate": 1.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 16.6067,
-   "ms_per_1000_rows": 52.887,
+   "ms_per_1000_rows": 53.518,
    "explains_itself": true,
    "n_truth_rows": 535
   },
@@ -342,7 +342,7 @@
    "detection_rate": 1.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 34.613,
+   "ms_per_1000_rows": 33.731,
    "explains_itself": true,
    "n_truth_rows": 534
   },
@@ -352,7 +352,7 @@
    "detection_rate": 0.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 0.0,
-   "ms_per_1000_rows": 21.966,
+   "ms_per_1000_rows": 19.797,
    "explains_itself": false,
    "n_truth_rows": 534
   },
@@ -362,7 +362,7 @@
    "detection_rate": 1.0,
    "false_alarm_rate": 0.0,
    "cost_per_million_rows_usd": 16.84,
-   "ms_per_1000_rows": 54.668,
+   "ms_per_1000_rows": 55.576,
    "explains_itself": true,
    "n_truth_rows": 534
   }
@@ -371,84 +371,84 @@
   {
    "problem": "renamed_or_dropped_column",
    "detection_rate": 1.0,
-   "ms_per_1000_rows": 0.05,
+   "ms_per_1000_rows": 56.07,
    "llm_calls_per_row": 0.003,
    "cost_per_million_rows_usd": 0.9367
   },
   {
    "problem": "column_type_change",
    "detection_rate": 1.0,
-   "ms_per_1000_rows": 0.05,
+   "ms_per_1000_rows": 56.33,
    "llm_calls_per_row": 0.003,
    "cost_per_million_rows_usd": 0.9367
   },
   {
    "problem": "date_format_switch",
    "detection_rate": 1.0,
-   "ms_per_1000_rows": 0.06,
+   "ms_per_1000_rows": 65.96,
    "llm_calls_per_row": 0.003,
    "cost_per_million_rows_usd": 0.9367
   },
   {
    "problem": "latlon_swapped",
    "detection_rate": 1.0,
-   "ms_per_1000_rows": 0.06,
+   "ms_per_1000_rows": 56.95,
    "llm_calls_per_row": 0.003,
    "cost_per_million_rows_usd": 0.9367
   },
   {
    "problem": "exact_duplicates",
    "detection_rate": 1.0,
-   "ms_per_1000_rows": 0.06,
+   "ms_per_1000_rows": 56.6,
    "llm_calls_per_row": 0.0029,
    "cost_per_million_rows_usd": 0.9329
   },
   {
    "problem": "near_duplicates",
    "detection_rate": 1.0,
-   "ms_per_1000_rows": 0.06,
+   "ms_per_1000_rows": 58.48,
    "llm_calls_per_row": 0.0029,
    "cost_per_million_rows_usd": 0.9345
   },
   {
    "problem": "null_spike",
    "detection_rate": 1.0,
-   "ms_per_1000_rows": 0.16,
+   "ms_per_1000_rows": 167.44,
    "llm_calls_per_row": 0.003,
    "cost_per_million_rows_usd": 0.9307
   },
   {
    "problem": "closed_before_created",
    "detection_rate": 1.0,
-   "ms_per_1000_rows": 0.06,
+   "ms_per_1000_rows": 57.85,
    "llm_calls_per_row": 0.003,
    "cost_per_million_rows_usd": 0.9367
   },
   {
    "problem": "zip_borough_mismatch",
    "detection_rate": 1.0,
-   "ms_per_1000_rows": 0.06,
+   "ms_per_1000_rows": 55.48,
    "llm_calls_per_row": 0.003,
    "cost_per_million_rows_usd": 0.9367
   },
   {
    "problem": "complaint_descriptor_mismatch",
    "detection_rate": 0.9908,
-   "ms_per_1000_rows": 0.06,
+   "ms_per_1000_rows": 59.45,
    "llm_calls_per_row": 0.005,
    "cost_per_million_rows_usd": 1.7557
   },
   {
    "problem": "resolution_status_contradiction",
    "detection_rate": 1.0,
-   "ms_per_1000_rows": 0.06,
+   "ms_per_1000_rows": 54.88,
    "llm_calls_per_row": 0.003,
    "cost_per_million_rows_usd": 0.9367
   },
   {
    "problem": "pii_in_text",
    "detection_rate": 1.0,
-   "ms_per_1000_rows": 0.06,
+   "ms_per_1000_rows": 56.59,
    "llm_calls_per_row": 0.003,
    "cost_per_million_rows_usd": 0.9367
   }

@@ -28,24 +28,24 @@
   {
    "name": "B: LLM at query time",
    "cases": 1042,
-   "correct": 766,
+   "correct": 780,
    "errors": 0,
-   "accuracy": 0.7351,
+   "accuracy": 0.7486,
    "latency": {
-    "mean_ms": 185.52,
-    "p50_ms": 185.52,
-    "p95_ms": 185.52
+    "mean_ms": 185.56,
+    "p50_ms": 185.56,
+    "p95_ms": 185.56
    },
    "usage": {
     "calls": 1042,
-    "prompt_tokens": 1184812,
-    "completion_tokens": 16031,
-    "latency_s": 0.0771,
+    "prompt_tokens": 1195738,
+    "completion_tokens": 16035,
+    "latency_s": 0.0799,
     "cost_usd": 0.0,
     "cache_hits": 0
    },
    "cost_per_1000_requests_usd": 0.0,
-   "notes": "offline proxy: every step correct except marginal relief on surcharge and s.87A; the same model the ITD basic calculator implements"
+   "notes": "offline proxy: every step correct except marginal relief on the surcharge and on the s.87A rebate, plus ss.288A/288B rounding; these are the omissions the ITD basic calculator makes too"
   },
   {
    "name": "C: LLM-compiled rules",
@@ -80,26 +80,26 @@
   {
    "fidelity": "no_marginal",
    "cases": 1042,
-   "correct": 766,
-   "accuracy": 0.7351
+   "correct": 780,
+   "accuracy": 0.7486
   },
   {
    "fidelity": "rupee_round",
    "cases": 1042,
-   "correct": 633,
-   "accuracy": 0.6075
+   "correct": 636,
+   "accuracy": 0.6104
   },
   {
    "fidelity": "no_marginal+rupee_round",
    "cases": 1042,
-   "correct": 463,
-   "accuracy": 0.4443
+   "correct": 471,
+   "accuracy": 0.452
   },
   {
    "fidelity": "slab_only",
    "cases": 1042,
-   "correct": 260,
-   "accuracy": 0.2495
+   "correct": 257,
+   "accuracy": 0.2466
   }
  ],
  "determinism": [

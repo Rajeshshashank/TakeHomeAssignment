@@ -20,8 +20,7 @@ OUT = os.path.join(HERE, "tests", "cases", "spec_diff.json")
 
 NOTES = {
     ("slabs", "new"): "new-regime slab boundaries re-based (rebate-free to 4,00,000; 30% above 24,00,000)",
-    ("standard_deduction", "new"): "new-regime standard deduction raised from 75,000 to 1,00,000",
-    ("rebate_87a", "new"): "s.87A new-regime rebate threshold raised to 12,00,000, cap to 60,000",
+    ("rebate_87a", "new"): "s.87A new-regime rebate threshold raised to 12,00,000, cap to 60,000; new-regime marginal-relief proviso retained",
 }
 
 
@@ -45,6 +44,10 @@ def diff_fys(old_fy: str = "2024-25", new_fy: str = "2025-26") -> list[dict[str,
     rows = []
     for k in keys:
         if a.get(k) == b.get(k):
+            continue
+        # ``meta`` carries labels, the assessment year and source citations; it
+        # is provenance, not a rule change, so it is not a substantive delta.
+        if k.startswith("meta."):
             continue
         parts = k.split(".")
         note = NOTES.get((parts[0], parts[1] if len(parts) > 1 else ""), "")

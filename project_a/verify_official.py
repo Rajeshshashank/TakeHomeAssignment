@@ -100,17 +100,87 @@ def run_live() -> list[dict]:
                 # Statutory computation (marginal relief, s.288A/288B rounding).
                 "ours_old": tax_on_total_income(income, "old", "2025-26")["total_tax"],
                 "ours_new": tax_on_total_income(income, "new", "2025-26")["total_tax"],
-                # The portal's *basic* calculator omits marginal relief and
-                # floors to the rupee (see the warning on that page).
+                # The portal's *basic* calculator model, reproduced exactly: it
+                # floors to the rupee, applies the s.87A marginal-relief proviso
+                # in the new regime only, and applies surcharge marginal relief
+                # only at the first (50,00,000) threshold — so it overstates tax
+                # just above 1 crore and 2 crore. Modelling the portal is what
+                # lets the comparison be an equality test rather than a permissive
+                # "agrees with whichever model matched" test.
                 "ours_basic_old": tax_on_total_income(
-                    income, "old", "2025-26", marginal_relief=False, rounding="rupee")["total_tax"],
+                    income, "old", "2025-26", rounding="rupee", surcharge_relief="first_band")["total_tax"],
                 "ours_basic_new": tax_on_total_income(
-                    income, "new", "2025-26", marginal_relief=False, rounding="rupee")["total_tax"],
+                    income, "new", "2025-26", rounding="rupee", surcharge_relief="first_band")["total_tax"],
             })
             print(f"income {income:>10,}  official={got}  statutory(old/new)="
                   f"{results[-1]['ours_old']}/{results[-1]['ours_new']}", flush=True)
         browser.close()
     return results
+
+
+def _recompute_ours(row: dict) -> None:
+    """Recompute our columns from the current code.
+
+    The ``official_*`` values are the recorded portal output (or the live read);
+    everything on our side is recomputed here so the artifact can never drift
+    from the engine that the docs describe, even when regenerated offline.
+
+    Two models are produced per row:
+
+    * ``ours_*`` — the statutory computation (all marginal relief, ss.288A/288B
+      rounding to ten).
+    * ``ours_basic_*`` — the portal's *basic* calculator reproduced exactly: it
+      floors to the rupee, omits the s.87A marginal-relief proviso in both
+      regimes, and applies surcharge marginal relief only at the first
+      (50,00,000) threshold. ``ours_basic_ten_*`` is the same model with the
+      statutory rounding, used to attribute a divergence to a marginal-relief
+      provision rather than to rounding.
+    """
+    income = row["income"]
+    row["ours_old"] = tax_on_total_income(income, "old", "2025-26")["total_tax"]
+    row["ours_new"] = tax_on_total_income(income, "new", "2025-26")["total_tax"]
+    for regime, key in (("old", "old"), ("new", "new")):
+        row[f"ours_basic_{key}"] = tax_on_total_income(
+            income, regime, "2025-26", marginal_relief=False, rounding="rupee",
+            surcharge_relief="first_band")["total_tax"]
+        row[f"ours_basic_ten_{key}"] = tax_on_total_income(
+            income, regime, "2025-26", marginal_relief=False, rounding="ten",
+            surcharge_relief="first_band")["total_tax"]
+
+
+def _classify(row: dict) -> None:
+    """Attach the per-row comparison flags and the two headline verdicts.
+
+    ``agrees`` is an equality test against the portal's own basic model — no OR
+    that lets a wrong statutory answer pass by matching the other model. The
+    statutory verdict is separate: the engine must match the portal everywhere
+    except the rows where a marginal-relief provision legitimately changes the
+    answer (which the basic calculator does not implement).
+    """
+    row["match_statutory_old"] = abs((row.get("official_old") or 0) - row["ours_old"]) < 1
+    row["match_statutory_new"] = abs((row.get("official_new") or 0) - row["ours_new"]) < 1
+    row["match_portal_old"] = abs((row.get("official_old") or 0) - row["ours_basic_old"]) < 1
+    row["match_portal_new"] = abs((row.get("official_new") or 0) - row["ours_basic_new"]) < 1
+    row["match_basic_old"] = row["match_portal_old"]
+    row["match_basic_new"] = row["match_portal_new"]
+    # A row sits on a marginal-relief boundary when the statutory answer differs
+    # from the portal model *at the same rounding* — i.e. the difference is a
+    # relief provision, not a rounding artefact.
+    row["at_marginal_relief_boundary"] = (
+        abs(row["ours_old"] - row["ours_basic_ten_old"]) > 0
+        or abs(row["ours_new"] - row["ours_basic_ten_new"]) > 0
+    )
+    # Exact portal match, both regimes, with no OR.
+    row["agrees"] = row["match_portal_old"] and row["match_portal_new"]
+    # The statutory answer must match the portal, or differ from it only by a
+    # sub-ten-rupee rounding artefact, or sit on a marginal-relief boundary the
+    # basic calculator does not implement. Any other divergence is a real defect.
+    row["statutory_matches_portal"] = all(
+        row[f"match_statutory_{r}"]
+        or row["at_marginal_relief_boundary"]
+        or abs((row.get(f"official_{r}") or 0) - row[f"ours_{r}"]) <= 10
+        for r in ("old", "new")
+    )
 
 
 def main() -> None:
@@ -123,28 +193,15 @@ def main() -> None:
         meta = {"source": "recorded"}
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     for r in rows:
-        r["match_statutory_old"] = abs((r.get("official_old") or 0) - r["ours_old"]) < 1
-        r["match_statutory_new"] = abs((r.get("official_new") or 0) - r["ours_new"]) < 1
-        r["match_basic_old"] = abs((r.get("official_old") or 0) - r["ours_basic_old"]) < 1
-        r["match_basic_new"] = abs((r.get("official_new") or 0) - r["ours_basic_new"]) < 1
-        # A row sits on a marginal-relief boundary when the statutory answer
-        # (relief applied) differs from the no-relief answer. The portal's own
-        # note says the basic calculator does not compute marginal relief.
-        r["at_marginal_relief_boundary"] = (
-            abs(r["ours_old"] - r["ours_basic_old"]) > 0
-            or abs(r["ours_new"] - r["ours_basic_new"]) > 0
-        )
-        r["agrees"] = (
-            (r["match_statutory_old"] and r["match_statutory_new"])
-            or (r["match_basic_old"] and r["match_basic_new"])
-        )
+        _recompute_ours(r)
+        _classify(r)
     with open(OUT, "w", encoding="utf-8") as fh:
         json.dump({"meta": meta, "rows": rows}, fh, indent=1)
     agree = sum(1 for r in rows if r["agrees"])
     stat = sum(1 for r in rows if r["match_statutory_old"] and r["match_statutory_new"])
     basic = sum(1 for r in rows if r["match_basic_old"] and r["match_basic_new"])
     boundaries = sum(1 for r in rows if r["at_marginal_relief_boundary"])
-    print(f"{agree}/{len(rows)} rows agree with the official calculator "
+    print(f"{agree}/{len(rows)} rows reproduce the official calculator exactly "
           f"(statutory-exact: {stat}, basic-model-exact: {basic}, "
           f"{boundaries} sit on marginal-relief boundaries) -> {OUT}")
 

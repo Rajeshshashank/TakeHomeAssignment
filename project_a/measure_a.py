@@ -136,8 +136,9 @@ def measure(proxy: bool = True, fy_filter: Optional[str] = None) -> dict[str, An
 
     if proxy:
         llm_b = RuleFollowingProxyLLM(fidelity="no_marginal")
-        llm_b_note = ("offline proxy: every step correct except marginal relief on surcharge and "
-                      "s.87A; the same model the ITD basic calculator implements")
+        llm_b_note = ("offline proxy: every step correct except marginal relief on the surcharge "
+                      "and on the s.87A rebate, plus ss.288A/288B rounding; these are the omissions "
+                      "the ITD basic calculator makes too")
     else:
         llm_b = get_default_llm()
         llm_b_note = f"live model: {getattr(llm_b, 'name', 'unknown')}"

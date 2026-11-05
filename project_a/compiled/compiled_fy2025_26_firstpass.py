@@ -2,17 +2,14 @@
 
 This is the un-reviewed output of the compile_rules() prompt for the FY 2025-26
 spec. It updates the new-regime slabs and the s.87A rebate threshold, but
-silently misses two of the Finance Act 2025 changes:
+silently misses the s.87A new-regime marginal-relief proviso: above the rebate
+threshold it charges the full slab tax (62,400 at 12,00,010) instead of roughly
+the excess over the threshold (about 10 rupees).
 
-  1. the new-regime standard deduction is left at 75,000 (should be 1,00,000),
-  2. the s.87A new-regime marginal-relief proviso is not implemented above the
-     rebate threshold, so a taxpayer a few rupees over 12,00,000 is charged the
-     full slab tax (66,300) instead of roughly the excess over the threshold
-     (about 10 rupees).
-
-Both failures are *silent*: the module returns a plausible rupee number with no
+The failure is *silent*: the module returns a plausible rupee number with no
 error. project_a/tests/test_task5.py demonstrates that the test corpus catches
-them, which is the point of Task 5.
+it, which is the point of Task 5. The Finance Act 2025 did not change the
+new-regime standard deduction (it stays at 75,000), so that is not a delta here.
 """
 from __future__ import annotations
 
@@ -20,7 +17,6 @@ from .compiled_fy2025_26 import (  # noqa: F401  (slabs are correct in this pass
     NEW, OLD, OLD_SENIOR, OLD_SUPER, SUR, _r10, _slab, _surcharge, _taxable as _taxable_ref,
 )
 
-# BUG 1: the first pass forgot the new-regime standard deduction increase.
 STD_NEW = 75000.0
 
 
@@ -71,8 +67,9 @@ def compute(profile, fy="2025-26"):
         if ti <= thr:
             reb = min(tax + sur, cap)
         else:
-            # BUG 2: no marginal-relief proviso for the new regime, so an income
-            # just above 12,00,000 is (incorrectly) taxed as zero.
+            # BUG: the new-regime marginal-relief proviso is applied only within
+            # one rupee of the threshold, so a taxpayer ten rupees over 12,00,000
+            # is charged the full slab tax (62,400) instead of about 10 rupees.
             reb = max(0.0, (tax + sur) - (ti - thr)) if regime == "new" and ti <= thr + 1 else 0.0
         cess = (tax + sur - reb) * 0.04
         out[regime] = _r10(max(0.0, tax + sur - reb + cess))

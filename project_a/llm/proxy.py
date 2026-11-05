@@ -9,14 +9,15 @@ encode the failure modes that were actually observed when the prompt in
 
 ``full``            every step correct (upper bound / sanity check)
 ``slab_only``       slabs + cess only; drops surcharge, rebate and rounding
-``no_marginal``     correct except marginal relief on surcharge and s.87A
+``no_marginal``     correct except it omits marginal relief on the surcharge and
+                    on the s.87A rebate in both regimes
 ``rupee_round``     correct except ss.288A/288B rounding (floors to the rupee)
 
 ``no_marginal`` + ``rupee_round`` is the profile used for the headline
-Implementation B numbers; it is also the model the Income Tax Department's own
-*basic* calculator implements (its page warns it does not do marginal relief),
-so the proxy's outputs are independently checkable against that public page.
-Set ``GEMINI_API_KEY`` to replace the proxy with the real model.
+Implementation B numbers; both are plausible model omissions and are
+independently checkable against the Income Tax Department's *basic* calculator,
+whose page warns that it does not apply marginal relief. Set ``GEMINI_API_KEY``
+to replace the proxy with the real model.
 """
 from __future__ import annotations
 
@@ -144,7 +145,9 @@ class RuleFollowingProxyLLM(BaseLLM):
             thr, capr = float(reb_cfg["threshold_total_income"]), float(reb_cfg["max_rebate"])
             if ti <= thr:
                 reb = min(tax + sur, capr)
-            elif "no_marginal" in p:
+            elif "no_marginal" in p or not reb_cfg.get("marginal_relief"):
+                # The old regime has no s.87A marginal relief, and a model that
+                # forgets the proviso ("no_marginal") omits it in both regimes.
                 reb = 0.0
             else:
                 reb = max(0.0, (tax + sur) - (ti - thr))

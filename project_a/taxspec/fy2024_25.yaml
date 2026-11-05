@@ -57,11 +57,14 @@ rebate_87a:
   old:
     threshold_total_income: 500000
     max_rebate: 12500
-    # Marginal relief at the threshold: tax cannot exceed income above 5,00,000.
-    marginal_relief: true
+    # The old regime has NO marginal relief for the s.87A rebate: a total income
+    # of 5,00,010 forfeits the whole 12,500 and pays full slab tax. Only the new
+    # regime gets the proviso.
+    marginal_relief: false
   new:
     threshold_total_income: 700000
     max_rebate: 25000
+    # New regime only: tax payable is capped at the income above the threshold.
     marginal_relief: true
 
 # Surcharge on tax (before cess). The 37% band applies only to the old regime;

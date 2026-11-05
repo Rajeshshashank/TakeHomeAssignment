@@ -49,19 +49,24 @@ slabs:
 standard_deduction:
   cite: "s.16(ia)"
   old: 50000
-  # CHANGED: new-regime standard deduction raised from 75,000 to 100,000.
-  new: 100000
+  # UNCHANGED: the new-regime standard deduction stays at 75,000 for FY 2025-26.
+  # The Finance Act 2025 raised the new-regime rebate threshold and slabs, not
+  # the standard deduction; the 75,000 figure (Budget 2024) carries over, which
+  # is what makes the salaried zero-tax ceiling 12,75,000 = 12,00,000 + 75,000.
+  new: 75000
 
 rebate_87a:
   cite: "s.87A(2) as amended by Finance Act 2025"
   old:
     threshold_total_income: 500000
     max_rebate: 12500
-    marginal_relief: true
+    # No marginal relief in the old regime (unchanged by the Finance Act 2025).
+    marginal_relief: false
   # CHANGED: new-regime rebate threshold 7,00,000 -> 12,00,000; cap 25,000 -> 60,000.
   new:
     threshold_total_income: 1200000
     max_rebate: 60000
+    # New regime only: tax payable is capped at the income above the threshold.
     marginal_relief: true
 
 surcharge:

@@ -16,7 +16,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 0.0,
+   "ours_basic_ten_new": 0.0
   },
   {
    "income": 300000,
@@ -31,7 +36,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 0.0,
+   "ours_basic_ten_new": 0.0
   },
   {
    "income": 400000,
@@ -46,7 +56,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 0.0,
+   "ours_basic_ten_new": 0.0
   },
   {
    "income": 400010,
@@ -61,7 +76,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 0.0,
+   "ours_basic_ten_new": 0.0
   },
   {
    "income": 500000,
@@ -76,13 +96,18 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 0.0,
+   "ours_basic_ten_new": 0.0
   },
   {
    "income": 500010,
    "official_old": 13002.0,
    "official_new": 0.0,
-   "ours_old": 10.0,
+   "ours_old": 13000.0,
    "ours_new": 0.0,
    "ours_basic_old": 13002.0,
    "ours_basic_new": 0.0,
@@ -90,8 +115,13 @@
    "match_statutory_new": true,
    "match_basic_old": true,
    "match_basic_new": true,
-   "at_marginal_relief_boundary": true,
-   "agrees": true
+   "at_marginal_relief_boundary": false,
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 13000.0,
+   "ours_basic_ten_new": 0.0
   },
   {
    "income": 700000,
@@ -106,7 +136,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 54600.0,
+   "ours_basic_ten_new": 0.0
   },
   {
    "income": 700010,
@@ -120,8 +155,13 @@
    "match_statutory_new": true,
    "match_basic_old": true,
    "match_basic_new": true,
-   "at_marginal_relief_boundary": true,
-   "agrees": true
+   "at_marginal_relief_boundary": false,
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 54600.0,
+   "ours_basic_ten_new": 0.0
   },
   {
    "income": 800000,
@@ -136,7 +176,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 75400.0,
+   "ours_basic_ten_new": 0.0
   },
   {
    "income": 800010,
@@ -150,8 +195,13 @@
    "match_statutory_new": true,
    "match_basic_old": true,
    "match_basic_new": true,
-   "at_marginal_relief_boundary": true,
-   "agrees": true
+   "at_marginal_relief_boundary": false,
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 75400.0,
+   "ours_basic_ten_new": 0.0
   },
   {
    "income": 1000000,
@@ -166,7 +216,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 117000.0,
+   "ours_basic_ten_new": 0.0
   },
   {
    "income": 1200000,
@@ -181,7 +236,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 179400.0,
+   "ours_basic_ten_new": 0.0
   },
   {
    "income": 1200010,
@@ -196,7 +256,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": true,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 179400.0,
+   "ours_basic_ten_new": 62400.0
   },
   {
    "income": 1500000,
@@ -211,7 +276,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 273000.0,
+   "ours_basic_ten_new": 109200.0
   },
   {
    "income": 1600000,
@@ -226,7 +296,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 304200.0,
+   "ours_basic_ten_new": 124800.0
   },
   {
    "income": 2000000,
@@ -241,7 +316,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 429000.0,
+   "ours_basic_ten_new": 208000.0
   },
   {
    "income": 2400000,
@@ -256,7 +336,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 553800.0,
+   "ours_basic_ten_new": 312000.0
   },
   {
    "income": 2400010,
@@ -270,8 +355,13 @@
    "match_statutory_new": false,
    "match_basic_old": true,
    "match_basic_new": true,
-   "at_marginal_relief_boundary": true,
-   "agrees": true
+   "at_marginal_relief_boundary": false,
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 553800.0,
+   "ours_basic_ten_new": 312000.0
   },
   {
    "income": 2500000,
@@ -286,7 +376,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 585000.0,
+   "ours_basic_ten_new": 343200.0
   },
   {
    "income": 5000000,
@@ -301,7 +396,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 1365000.0,
+   "ours_basic_ten_new": 1123200.0
   },
   {
    "income": 5000010,
@@ -309,14 +409,19 @@
    "official_new": 1123210.0,
    "ours_old": 1365010.0,
    "ours_new": 1123210.0,
-   "ours_basic_old": 1501503.0,
-   "ours_basic_new": 1235523.0,
+   "ours_basic_old": 1365010.0,
+   "ours_basic_new": 1123210.0,
    "match_statutory_old": true,
    "match_statutory_new": true,
-   "match_basic_old": false,
-   "match_basic_new": false,
-   "at_marginal_relief_boundary": true,
-   "agrees": true
+   "match_basic_old": true,
+   "match_basic_new": true,
+   "at_marginal_relief_boundary": false,
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 1365010.0,
+   "ours_basic_ten_new": 1123210.0
   },
   {
    "income": 10000000,
@@ -331,7 +436,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 3217500.0,
+   "ours_basic_ten_new": 2951520.0
   },
   {
    "income": 10000010,
@@ -346,7 +456,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": true,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 3363750.0,
+   "ours_basic_ten_new": 3085680.0
   },
   {
    "income": 20000000,
@@ -361,7 +476,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 6951750.0,
+   "ours_basic_ten_new": 6673680.0
   },
   {
    "income": 20000010,
@@ -376,7 +496,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": true,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 7556250.0,
+   "ours_basic_ten_new": 7254000.0
   },
   {
    "income": 50000000,
@@ -391,7 +516,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 19256250.0,
+   "ours_basic_ten_new": 18954000.0
   },
   {
    "income": 50000010,
@@ -406,7 +536,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": true,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 21104850.0,
+   "ours_basic_ten_new": 18954000.0
   },
   {
    "income": 3000000,
@@ -421,7 +556,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 741000.0,
+   "ours_basic_ten_new": 499200.0
   },
   {
    "income": 4000000,
@@ -436,7 +576,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 1053000.0,
+   "ours_basic_ten_new": 811200.0
   },
   {
    "income": 6000000,
@@ -451,7 +596,12 @@
    "match_basic_old": true,
    "match_basic_new": true,
    "at_marginal_relief_boundary": false,
-   "agrees": true
+   "agrees": true,
+   "match_portal_old": true,
+   "match_portal_new": true,
+   "statutory_matches_portal": true,
+   "ours_basic_ten_old": 1844700.0,
+   "ours_basic_ten_new": 1578720.0
   }
  ]
 }

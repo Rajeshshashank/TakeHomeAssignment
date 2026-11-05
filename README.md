@@ -34,7 +34,7 @@ bash scripts/run_all.sh
 `run_all.sh` is offline by default: the LLM layers run against deterministic
 proxies, so every number below is reproducible with no API key. Export
 `GEMINI_API_KEY` to re-run the LLM layers against a real model; the result files
-record which mode was used. The final step runs **674 tests**, including a suite
+record which mode was used. The final step runs **680 tests**, including a suite
 that asserts every number quoted in the write-ups matches the JSON artifacts.
 Requires Python 3.10+.
 
@@ -44,9 +44,10 @@ on a laptop), so a re-run may leave `project_b/results/measurement.json` and
 `project_a/tests/cases/measurement.json` with latency-only diffs; the accuracy,
 cost and detection numbers will not change.
 
-The shipped repo carries the 108 MB raw extract gzipped
-(`project_b/data/nyc311_2023_sample.jsonl.gz`); `run_all.sh` expands it on first
-run. To re-fetch instead: `python3 scripts/fetch_nyc311.py`.
+The shipped repo carries the raw 2023 extract gzipped
+(`project_b/data/nyc311_2023_sample.jsonl.gz`, 108 MB raw → 13 MB gzipped);
+`run_all.sh` expands it on first run. To re-fetch instead:
+`python3 scripts/fetch_nyc311.py`.
 
 ## Test suites
 
@@ -54,10 +55,10 @@ run. To re-fetch instead: `python3 scripts/fetch_nyc311.py`.
 python3 -m pytest project_a/tests project_b/tests tests -q
 ```
 
-**674 tests, all green.** 650 Project A tests (the frozen 1042-answer corpus,
+**680 tests, all green.** 654 Project A tests (the frozen 1042-answer corpus,
 the parser corpus, the citation invariant, the FY 2025-26 change and its silent
-failures), 10 Project B tests (injector labelling, clean-batch invariants, each
-detector family on the problem it owns, the pipeline's cost bound), and 14
+failure), 10 Project B tests (injector labelling, clean-batch invariants, each
+detector family on the problem it owns, the pipeline's cost bound), and 16
 cross-cutting tests that assert every figure quoted in these write-ups matches
 the regenerated JSON artifacts.
 
@@ -66,7 +67,7 @@ the regenerated JSON artifacts.
 | | Accuracy | Latency | Cost | Deterministic |
 |---|---|---:|---:|---|
 | **A** rules engine | 100.0% (1042/1042) | 0.0 ms | $0.0000 / 1k | yes |
-| **B** LLM at query time | 73.5% (766/1042) | 185 ms | $0.1199 / 1k | not guaranteed |
+| **B** LLM at query time | 74.9% (780/1042) | 185 ms | $0.1209 / 1k | not guaranteed |
 | **C** LLM-compiled rules | 100.0% (1042/1042) | 0.02 ms | $0.0000 / 1k | yes |
 
 | | Best family | Detection / false-alarm |

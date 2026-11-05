@@ -107,7 +107,7 @@ def build_cases() -> list[dict[str, Any]]:
     # surcharge / rebate boundary where marginal relief is the operative rule.
     # This is the corner the official basic calculator gets wrong.
     STD = {("2024-25", "old"): 50000, ("2024-25", "new"): 75000,
-           ("2025-26", "old"): 50000, ("2025-26", "new"): 100000}
+           ("2025-26", "old"): 50000, ("2025-26", "new"): 75000}
     relief_offsets = [0, 1, 10, 100, 1000, 10000, 50000, 100000, 200000]
     for fy in FYS:
         for regime, thresholds in (

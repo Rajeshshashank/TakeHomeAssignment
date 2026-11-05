@@ -1,9 +1,9 @@
 """LLM-compiled rules for FY 2025-26 (Implementation C artifact, reviewed).
 
 The Finance Act 2025 deltas vs FY 2024-25 are: new-regime slabs re-based
-(rebate-free to 4,00,000; 30% above 24,00,000), new-regime standard deduction
-raised to 1,00,000, and the s.87A new-regime rebate threshold raised to
-12,00,000 with the cap at 60,000. See compiled_fy2025_26_firstpass.py for the
+(rebate-free to 4,00,000; 30% above 24,00,000) and the s.87A new-regime rebate
+threshold raised to 12,00,000 with the cap at 60,000. The new-regime standard
+deduction is *unchanged* at 75,000. See compiled_fy2025_26_firstpass.py for the
 first LLM attempt and the bug the test suite caught in it.
 """
 
@@ -13,7 +13,7 @@ OLD_SUPER = [(500000, 0.0), (1000000, 0.20), (None, 0.30)]
 NEW = [(400000, 0.0), (800000, 0.05), (1200000, 0.10), (1600000, 0.15),
        (2000000, 0.20), (2400000, 0.25), (None, 0.30)]
 SUR = [(5000000, 0.10), (10000000, 0.15), (20000000, 0.25), (50000000, 0.37)]
-STD_NEW = 100000.0
+STD_NEW = 75000.0
 
 
 def _r10(x):
@@ -104,13 +104,15 @@ def compute(profile, fy="2025-26"):
         tax = _slab(ti, bands)
         sur = _surcharge(ti, tax, bands, regime)
         if regime == "old":
-            thr, cap = 500000.0, 12500.0
+            thr, cap, mr = 500000.0, 12500.0, False
         else:
-            thr, cap = 1200000.0, 60000.0
+            thr, cap, mr = 1200000.0, 60000.0, True
         if ti <= thr:
             reb = min(tax + sur, cap)
-        else:
+        elif mr:
             reb = max(0.0, (tax + sur) - (ti - thr))
+        else:
+            reb = 0.0
         cess = (tax + sur - reb) * 0.04
         out[regime] = _r10(max(0.0, tax + sur - reb + cess))
     return out

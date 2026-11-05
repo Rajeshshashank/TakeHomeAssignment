@@ -29,7 +29,7 @@ def compute_oracle_2025(profile: dict[str, Any]) -> dict[str, float]:
             std = 50000.0
         else:
             bands = NEW_25
-            std = 100000.0
+            std = 75000.0  # unchanged from FY 2024-25
 
         hra = 0.0
         if regime == "old" and profile.get("hra_received") and profile.get("rent_paid"):
@@ -60,14 +60,18 @@ def compute_oracle_2025(profile: dict[str, Any]) -> dict[str, float]:
         tax = _tax(ti, bands)
         sur, _relief = _marginal_sur(ti, tax, bands, regime)
 
+        # s.87A rebate. As in FY 2024-25, the marginal-relief proviso applies to
+        # the new regime only; the old regime is a plain cliff at 5,00,000.
         if regime == "old":
-            thr, cap = 500000.0, 12500.0
+            thr, cap, mr = 500000.0, 12500.0, False
         else:
-            thr, cap = 1200000.0, 60000.0
+            thr, cap, mr = 1200000.0, 60000.0, True
         if ti <= thr:
             reb = min(tax + sur, cap)
-        else:
+        elif mr:
             reb = max(0.0, (tax + sur) - (ti - thr))
+        else:
+            reb = 0.0
         cess = (tax + sur - reb) * 0.04
         out[regime] = _r10(max(0.0, tax + sur - reb + cess))
     return out

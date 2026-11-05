@@ -293,7 +293,9 @@ def compute_regime(profile: TaxpayerProfile, spec: dict[str, Any], regime: str) 
     if total_income <= thr:
         rebate = min(tax_after_surcharge, cap)
     elif rebate_cfg.get("marginal_relief"):
-        # New regime: tax payable cannot exceed income above the threshold.
+        # New regime only (the old regime has no s.87A marginal relief): tax
+        # payable is capped at the income above the threshold, so the taxpayer
+        # never pays more than the excess over 12,00,000.
         rebate = max(0.0, tax_after_surcharge - (total_income - thr))
     res.rebate_87a = rebate
 
@@ -337,7 +339,7 @@ def compute(profile: TaxpayerProfile, fy: str = "2024-25") -> TaxResult:
         )
     elif old.total_tax < new.total_tax:
         best = "old"
-        savings = old.total_tax and (new.total_tax - old.total_tax)
+        savings = new.total_tax - old.total_tax
         reason = (
             f"The old regime is cheaper by {new.total_tax - old.total_tax:,.0f} because the "
             f"deductions in scope (ss.80C, 80CCD(1B), 80D, 24(b)) and the HRA exemption "

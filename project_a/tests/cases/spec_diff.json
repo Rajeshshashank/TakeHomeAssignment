@@ -3,46 +3,22 @@
  "new_fy": "2025-26",
  "deltas": [
   {
-   "field": "meta.ay",
-   "fy2024_25": "2025-26",
-   "fy2025_26": "2026-27",
-   "note": ""
-  },
-  {
-   "field": "meta.fy",
-   "fy2024_25": "2024-25",
-   "fy2025_26": "2025-26",
-   "note": ""
-  },
-  {
-   "field": "meta.sources",
-   "fy2024_25": "[\"Income Tax Department, 'Income Tax Slabs & Rates FY 2024-25 (AY 2025-26)'\", \"Finance (No. 2) Act, 2024\", \"Income Tax Act, 1961, ss. 87A, 115BAC, 288A, 288B\"]",
-   "fy2025_26": "[\"Finance Act 2025\", \"Income Tax Department, 'New Tax Regime Slabs FY 2025-26'\", \"Income Tax Act, 1961, ss. 87A, 115BAC, 288A, 288B\"]",
-   "note": ""
-  },
-  {
    "field": "rebate_87a.new.max_rebate",
    "fy2024_25": 25000,
    "fy2025_26": 60000,
-   "note": "s.87A new-regime rebate threshold raised to 12,00,000, cap to 60,000"
+   "note": "s.87A new-regime rebate threshold raised to 12,00,000, cap to 60,000; new-regime marginal-relief proviso retained"
   },
   {
    "field": "rebate_87a.new.threshold_total_income",
    "fy2024_25": 700000,
    "fy2025_26": 1200000,
-   "note": "s.87A new-regime rebate threshold raised to 12,00,000, cap to 60,000"
+   "note": "s.87A new-regime rebate threshold raised to 12,00,000, cap to 60,000; new-regime marginal-relief proviso retained"
   },
   {
    "field": "slabs.new.brackets",
    "fy2024_25": "[{\"rate\": 0.0, \"upto\": 300000}, {\"rate\": 0.05, \"upto\": 700000}, {\"rate\": 0.1, \"upto\": 1000000}, {\"rate\": 0.15, \"upto\": 1200000}, {\"rate\": 0.2, \"upto\": 1500000}, {\"rate\": 0.3, \"upto\": null}]",
    "fy2025_26": "[{\"rate\": 0.0, \"upto\": 400000}, {\"rate\": 0.05, \"upto\": 800000}, {\"rate\": 0.1, \"upto\": 1200000}, {\"rate\": 0.15, \"upto\": 1600000}, {\"rate\": 0.2, \"upto\": 2000000}, {\"rate\": 0.25, \"upto\": 2400000}, {\"rate\": 0.3, \"upto\": null}]",
    "note": "new-regime slab boundaries re-based (rebate-free to 4,00,000; 30% above 24,00,000)"
-  },
-  {
-   "field": "standard_deduction.new",
-   "fy2024_25": 75000,
-   "fy2025_26": 100000,
-   "note": "new-regime standard deduction raised from 75,000 to 1,00,000"
   }
  ]
 }

@@ -35,8 +35,8 @@ Compute, for FY {fy}:
 - tax payable to the rupee under the old regime and the new regime,
 applying the standard deduction, HRA exemption (old regime), ss.80C, 80CCD(1B),
 80D, s.24(b) (old regime), slab rates, surcharge with marginal relief, the s.87A
-rebate with marginal relief, and the 4% cess. Round total income and tax to the
-nearest ten rupees as the Act requires.
+rebate with the marginal-relief proviso only where the rules mark it, and the 4%
+cess. Round total income and tax to the nearest ten rupees as the Act requires.
 
 Return JSON exactly:
 {{"old_tax": <number>, "new_tax": <number>, "best_regime": "old"|"new"|"either",

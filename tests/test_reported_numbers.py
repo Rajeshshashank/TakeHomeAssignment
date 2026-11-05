@@ -56,32 +56,32 @@ def _impl(measure: dict, prefix: str) -> dict:
 def test_project_a_accuracy_matches_docs(a_measure):
     a, b, c = _impl(a_measure, "A"), _impl(a_measure, "B"), _impl(a_measure, "C")
     assert a["accuracy"] == 1.0 and c["accuracy"] == 1.0
-    assert abs(b["accuracy"] - 0.7351) < 1e-4
+    assert abs(b["accuracy"] - 0.7486) < 1e-4
     for doc in ("README.md", "RESULTS_A.md"):
         text = _md(doc)
-        assert "100.0%" in text and "73.5%" in text, doc
+        assert "100.0%" in text and "74.9%" in text, doc
         assert "1042/1042" in text, doc
 
 
 def test_project_a_latency_and_cost_match_docs(a_measure):
     b = _impl(a_measure, "B")
-    # The report rounds to 185 ms and $0.1199/1k.
+    # The report rounds to 185 ms and $0.1209/1k.
     assert abs(b["latency"]["mean_ms"] - 185.5) < 1.0
     usage = b["usage"]
     paid = (usage["prompt_tokens"] / 1e6 * 0.10 + usage["completion_tokens"] / 1e6 * 0.40)
     per_1k = paid / b["cases"] * 1000
-    assert abs(per_1k - 0.1199) < 0.001
-    assert "0.1199" in _md("RESULTS_A.md")
+    assert abs(per_1k - 0.1209) < 0.001
+    assert "0.1209" in _md("RESULTS_A.md")
     assert "185" in _md("RESULTS_A.md")
 
 
 def test_project_a_fidelity_sweep_matches_docs(a_measure):
     sweep = {r["fidelity"]: r for r in a_measure["fidelity_sweep"]}
     assert sweep["full"]["correct"] == 1042
-    assert sweep["no_marginal"]["correct"] == 766
-    assert sweep["slab_only"]["correct"] == 260
+    assert sweep["no_marginal"]["correct"] == 780
+    assert sweep["slab_only"]["correct"] == 257
     text = _md("RESULTS_A.md")
-    for n in ("1042/1042", "766/1042", "633/1042", "463/1042", "260/1042"):
+    for n in ("1042/1042", "780/1042", "636/1042", "471/1042", "257/1042"):
         assert n in text, n
 
 
@@ -97,7 +97,18 @@ def test_official_calculator_agreement_matches_docs():
     with open(A_CHECKS, encoding="utf-8") as fh:
         rows = json.load(fh)["rows"]
     assert len(rows) >= 30
-    assert all(r["agrees"] for r in rows)
+    # Every row must reproduce the portal's own basic model exactly — no OR that
+    # lets a wrong statutory answer pass by matching the other model.
+    assert all(r["agrees"] for r in rows), "a row does not reproduce the official calculator"
+    assert all(r["match_portal_old"] and r["match_portal_new"] for r in rows)
+    # And the statutory answer must match the portal everywhere except the
+    # marginal-relief boundaries the basic calculator does not apply.
+    assert all(r["statutory_matches_portal"] for r in rows), \
+        "statutory answer diverges from the portal away from a marginal-relief boundary"
+    # The two regimes of the portal (old/new) must both be reproduced; the
+    # marginal-relief boundaries must include the 87A new-regime edge, which is
+    # the one the old code silently got wrong.
+    assert 1200010 in {r["income"] for r in rows if r["at_marginal_relief_boundary"]}
     statutory = sum(1 for r in rows if r["match_statutory_old"] and r["match_statutory_new"])
     basic = sum(1 for r in rows if r["match_basic_old"] and r["match_basic_new"])
     text = _md("RESULTS_A.md")
@@ -105,11 +116,27 @@ def test_official_calculator_agreement_matches_docs():
     assert f"{basic}/30" in text, basic
 
 
+def test_old_regime_87a_cliff_matches_the_official_calculator():
+    """The specific defect the review caught: the old-regime s.87A rebate is a
+    plain cliff. At 5,00,010 the portal charges the full slab tax (13,002 to the
+    rupee) and so must we (13,000 to the nearest ten) — the engine must not apply
+    the new regime's marginal-relief proviso here."""
+    with open(A_CHECKS, encoding="utf-8") as fh:
+        rows = json.load(fh)["rows"]
+    row = next(r for r in rows if r["income"] == 500010)
+    assert row["official_old"] == 13002.0, row["official_old"]
+    assert row["ours_old"] == 13000.0, row["ours_old"]
+    assert row["statutory_matches_portal"], "old-regime 87A must be a cliff, not marginal relief"
+    # And the pre-fix bug would have produced a near-zero answer here.
+    assert row["ours_old"] > 1000, "the old-regime cliff must charge the full slab tax"
+
+
+
 def test_spec_diff_delta_count_matches_docs():
     with open(A_SPECDIFF, encoding="utf-8") as fh:
         deltas = json.load(fh)["deltas"]
-    assert len(deltas) == 7, "RESULTS_A.md says 7 substantive deltas"
-    assert "7 substantive deltas" in _md("RESULTS_A.md")
+    assert len(deltas) == 3, "RESULTS_A.md says 3 substantive deltas"
+    assert "3 substantive deltas" in _md("RESULTS_A.md")
 
 
 def test_project_b_profile_counts_match_docs(b_profile):
@@ -136,6 +163,20 @@ def test_project_b_detector_table_matches_docs(b_measure):
     text = _md("RESULTS_B.md")
     assert "99% / 0.07%" in text
     assert "65% / 0.00%" in text
+
+
+def test_project_b_hybrid_throughput_is_per_thousand_rows(b_measure):
+    """The hybrid runs rules + statistics + LLM on every batch, so its cost per
+    1,000 rows cannot be a thousandth of the rules family's. This guards the unit
+    bug where the hybrid figure was milliseconds-per-*row* mislabelled as
+    milliseconds-per-1,000-rows."""
+    by = {(r["problem"], r["detector"]): r for r in b_measure["detectors"]}
+    for h in b_measure["hybrid"]:
+        base = by[(h["problem"], "rules")]["ms_per_1000_rows"]
+        assert h["ms_per_1000_rows"] >= 0.5 * base, (
+            f"{h['problem']}: hybrid {h['ms_per_1000_rows']} ms/1k is implausibly "
+            f"below the rules family's {base} ms/1k")
+        assert h["ms_per_1000_rows"] <= 50 * base, (h["problem"], h["ms_per_1000_rows"], base)
 
 
 def test_project_b_hybrid_cost_bound_matches_docs(b_measure):
