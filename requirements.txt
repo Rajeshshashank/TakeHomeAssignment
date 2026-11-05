@@ -1,0 +1,7 @@
+# Core (required for scripts/run_all.sh and the test suites)
+PyYAML>=6.0
+pytest>=7.0
+
+# Optional: only for the live official-calculator re-check
+#   python3 -m project_a.verify_official --live
+playwright>=1.40

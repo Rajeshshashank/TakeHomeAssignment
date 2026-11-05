@@ -1,0 +1,106 @@
+# Income-tax parameters for salaried individuals, FY 2025-26 (AY 2026-27).
+# Task 5 of the assignment: the Finance Act 2025 new-regime changes.
+#
+# Diff against fy2024_25.yaml is deliberately small and machine-readable; the
+# change log in RESULTS_A.md is generated from this file by
+# project_a/spec_diff.py so the "what broke" column is reproducible.
+meta:
+  fy: "2025-26"
+  ay: "2026-27"
+  currency: INR
+  sources:
+    - "Finance Act 2025"
+    - "Income Tax Department, 'New Tax Regime Slabs FY 2025-26'"
+    - "Income Tax Act, 1961, ss. 87A, 115BAC, 288A, 288B"
+  rounding:
+    total_income: floor10
+    tax_payable: round10
+
+slabs:
+  old:
+    cite: "Finance Act 2025, First Schedule Part I; s.115BAC opt-out"
+    brackets:
+      - {upto: 250000, rate: 0.00}
+      - {upto: 500000, rate: 0.05}
+      - {upto: 1000000, rate: 0.20}
+      - {upto: null, rate: 0.30}
+    senior_brackets:
+      - {upto: 300000, rate: 0.00}
+      - {upto: 500000, rate: 0.05}
+      - {upto: 1000000, rate: 0.20}
+      - {upto: null, rate: 0.30}
+    super_senior_brackets:
+      - {upto: 500000, rate: 0.00}
+      - {upto: 1000000, rate: 0.20}
+      - {upto: null, rate: 0.30}
+  # CHANGED in Finance Act 2025: the s.115BAC rebate-free threshold moves from
+  # 3,00,000 to 4,00,000 and the 30% rate now starts above 24,00,000.
+  new:
+    cite: "s.115BAC(1A) as amended by Finance Act 2025"
+    brackets:
+      - {upto: 400000, rate: 0.00}
+      - {upto: 800000, rate: 0.05}
+      - {upto: 1200000, rate: 0.10}
+      - {upto: 1600000, rate: 0.15}
+      - {upto: 2000000, rate: 0.20}
+      - {upto: 2400000, rate: 0.25}
+      - {upto: null, rate: 0.30}
+
+standard_deduction:
+  cite: "s.16(ia)"
+  old: 50000
+  # CHANGED: new-regime standard deduction raised from 75,000 to 100,000.
+  new: 100000
+
+rebate_87a:
+  cite: "s.87A(2) as amended by Finance Act 2025"
+  old:
+    threshold_total_income: 500000
+    max_rebate: 12500
+    marginal_relief: true
+  # CHANGED: new-regime rebate threshold 7,00,000 -> 12,00,000; cap 25,000 -> 60,000.
+  new:
+    threshold_total_income: 1200000
+    max_rebate: 60000
+    marginal_relief: true
+
+surcharge:
+  cite: "Finance Act 2025, First Schedule; s.115BAC(1A) proviso"
+  bands:
+    - {above: 5000000, rate: 0.10}
+    - {above: 10000000, rate: 0.15}
+    - {above: 20000000, rate: 0.25}
+    - {above: 50000000, rate: 0.37}
+  new_regime_max_rate: 0.25
+  marginal_relief: true
+
+cess_rate:
+  value: 0.04
+  cite: "Finance Act 2018, s.2; Health and Education Cess at 4%"
+
+caps:
+  sec_80c: {value: 150000, cite: "s.80C(1) read with s.80CCE"}
+  sec_80ccd_1b: {value: 50000, cite: "s.80CCD(1B)"}
+  sec_80d:
+    self_below_60: {value: 25000, cite: "s.80D(2)"}
+    self_60_plus: {value: 50000, cite: "s.80D(2) proviso"}
+    parents_below_60: {value: 25000, cite: "s.80D(2)(b)"}
+    parents_60_plus: {value: 50000, cite: "s.80D(2)(b) proviso"}
+  sec_24b_self_occupied: {value: 200000, cite: "s.24(b)"}
+  professional_tax: {value: 2500, cite: "s.16(iii)"}
+
+hra_exemption:
+  cite: "s.10(13A) read with Rule 2A"
+  method: min_of_three
+  components:
+    - actual_hra_received
+    - rent_paid_minus_10pct_salary
+    - pct_of_salary
+  pct_of_salary:
+    metro: 0.50
+    non_metro: 0.40
+  salary_basis: [basic, dearness_allowance]
+
+regime_allowed_deductions:
+  old: [hra, sec_80c, sec_80ccd_1b, sec_80d, sec_24b, professional_tax]
+  new: []
